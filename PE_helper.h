@@ -1,3 +1,4 @@
+#include <map>
 //returns whether any value is prime or not in O(1) run time for many values, else O(0.25*n)
 int isPrime(unsigned long long val)
 {
@@ -57,3 +58,52 @@ int isPrime(unsigned long long val)
 	// cout << val << " is prime\n";
 	return 1;
 }
+
+// returns the nth triangle number via gaussian sum
+long getTriangleNumber(int n) {
+	return n*(n+1)/2;
+}
+
+//returns factorial for whole number
+long getFactorial(unsigned int n) {
+	long output = 1;
+	for (int i = 2; i <= n; ++i) {
+		output *= i;
+	}
+	return output;
+}
+
+//returns the number of divisors of a number
+int getNumDivisors(long n) {
+	cout  << "num" << n;
+	// start with prime factorization
+	int divisor = 2;
+	int numFactors = 0; 
+	std::map<int, int> divMap;
+	while (n > 1) {
+		if (n%divisor == 0) {
+			n /= divisor;
+			++numFactors;
+			++divMap[divisor];
+		}
+		else {
+			++divisor;
+		}
+	}
+	cout << "numFactors" << numFactors;
+
+	// the number of divisors is equal to product ways to pick 1,2,3,... or none of a prime factor
+	// OR the sum of  nC1+nC2+nC3... the former is much easier to calculate
+	// (a+1)(b+1)(c+1),... where a,b,c,... are the number of occurrences of prime factors in 
+	// primefactorization: x1^a * x2^b * x3^c * ...
+	unsigned int numDivisors = 1;
+	std::map<int,int>::iterator itr;
+	for (itr = divMap.begin(); itr != divMap.end(); ++itr) {
+		numDivisors *= itr->second + 1;
+		cout << "(" << itr->first <<","<<itr->second<<"),";
+	}
+	cout << "numDivisors" << numDivisors << "\n";
+
+	return numDivisors;
+}
+

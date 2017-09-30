@@ -18,7 +18,7 @@
 // *******************/*   *\*******************
 // !!!!!!!!!!!!!!!/* CHANGE ME *\!!!!!!!!!!!!!!!
 // *!*!*!*!*!*!*!*/*           *\*!*!*!*!*!*!*!*
-#define PROBLEM_NUM 	11
+#define PROBLEM_NUM 	5
 // *!*!*!*!*!*!*!*/*           *\*!*!*!*!*!*!*!*
 // *******************/*   *\*******************
 
@@ -29,7 +29,6 @@ using namespace std;
 // ***********/* INCLUDES */***********
 #include <iostream>
 #include <cstdlib>
-#include <map>
 #include <queue>
 #include <string>
 #include "PE_helper.h"
@@ -40,6 +39,18 @@ typedef long long output_t;
 
 
 // ***********/* PROBLEMS */***********
+
+//triangle number with over 500 divisors
+output_t problem12()
+{
+	//2016 via (incorrect) combinatorics - there is an easier way!
+	// check code for the helpers used
+	int n = 1; //random start value taken from PE example
+	while (getNumDivisors(getTriangleNumber(n)) < 500) {
+		++n;
+	}
+	return getTriangleNumber(n); //76576500
+}
 
 // largest product of 4 adjacent numbers
 output_t problem11()
@@ -190,6 +201,8 @@ output_t problem11()
 	} // vert max: col 15 rows 6-9, 66*91*88*97 = 51267216
 	
 	//***diagonals***
+	// TODO: change O(3n^2) to O(n) by using *= and /= algorithm from horizontals/verticals
+	// TODO: skip over regions with 0s in this test 
 	for ( int i = 0; i <= ARRAY_DIMM - SEQUENCE_LENGTH; ++i) 
 	{
 		unsigned long  product = 1;

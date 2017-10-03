@@ -39,6 +39,36 @@ typedef long long output_t;
 
 
 // ***********/* PROBLEMS */***********
+// lattice paths traversing DOWN RIGHT in a 20x20 grid
+output_t problem15()
+{
+	// find number of combinations of 20D and 20R
+	// base case 	D...DDDRRR..R
+	// 				D...DDRDRR..R //20 ways to switch the first R, 19 to move the 2nd, 18 to move the 3rd 
+
+	/* 
+	DDRR 
+	DRDR
+	DRRD
+	RDDR
+	RDRD
+	RRDD
+	*/
+	//n!/(r!*(n-r)!)
+	// n multichoose k (n+k-1)C(n)
+
+	// return getFactorial(20+21-1)/getFactorial(20)/getFactorial(20-20);
+	double val = 1;
+	for (int i = 21; i <=40; ++i) {
+		val *= i;
+		val /= i-20;
+	}
+	// val /= getFactorial(20);
+	cout.precision(50);
+	cout << val; //14688017186506670080 // 335367096786357061827717758976
+	return val; //137846528820
+}
+
 // longest collatz sequence starting under 1 million
 output_t problem14()
 {

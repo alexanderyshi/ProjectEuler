@@ -39,6 +39,39 @@ typedef long long output_t;
 
 
 // ***********/* PROBLEMS */***********
+// longest collatz sequence starting under 1 million
+output_t problem14()
+{
+	//if even, divide 2
+	//if odd, multiply by 3 and add 1
+
+	// for every even number where you must divide by 2, there was a smaller number that was odd that was used to get there
+	// therefore should always start on odd numbers to add the extra step (?) //910107
+	// !!AYS it should be noted that for 3n+1 that gives a power of two, that makes the shortest sequence possible
+	// i increment in 2s anyways because why not, ideally increment 1s if you don't know the answer already though
+	int maxCount = 0;
+	int startNum = 0;
+	for (int i = 3; i < 1E6; i+=2) { //  numbers in the sequence will pass int, therefore use ULL
+		int count = 0;
+		unsigned long long num = i;
+		while (num > 1) {
+			if (num % 2 == 0) {
+				num /= 2;
+			} else {
+				num = num * 3 + 1;
+			}
+			++count;
+		}
+		maxCount = maxCount > count ? maxCount : count;
+		if (maxCount == count) {
+			startNum = i;
+			cout << i <<"\t" << count << "\n";
+		}
+	}
+	// should search for a starting number with prime factorization of all odd, and one 2?
+	return startNum; // 837799
+}
+
 // sum of one hundred 50-digit numbers
 output_t problem13()
 {

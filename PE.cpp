@@ -30,6 +30,7 @@ using namespace std;
 #include <iostream>
 #include <cstdlib>
 #include <queue>
+#include <math.h>
 #include <string>
 #include "PE_helper.h"
 
@@ -39,6 +40,33 @@ typedef long long output_t;
 
 
 // ***********/* PROBLEMS */***********
+//letters used in listing numbers 1-1000 in words
+output_t problem17()
+{
+	// make an array of the number of letters per digit 1-9
+	// sum the digits in this array [1-9]
+	// make an array of the number of letters per digit 10-19
+	// sum the digits in this array [10-19]
+	// make an array of the number of letters for twenties through nineties [2x-9x]
+		// for the numbers 20-99, sum the letters for the tens place and the letters for the ones place
+		// for the numbers 100-999, sum the hundreds place digit number, the number of letters in "hundred and", and the letters for the respective 1-99 
+	// add the digits for "one thousand" 
+
+	// much of the repeating numbers can be implemented by doing something like "digits in eleven * 10 appearances" + "digits in 'hundred and' * 9 appearances"
+	return -1;
+}
+
+// sum of the digits of 2^1000
+output_t problem16()
+{
+	// need to reimplement this with BigNumber format due to double losing precision after 53 places? - limited by mantessa
+	// how many digits in 2^1000
+	// build an array and iterate through doubling values and evaluating carryover
+	// loop through the array and add the digit values
+	return -1;
+
+}
+
 // lattice paths traversing DOWN RIGHT in a 20x20 grid
 output_t problem15()
 {
@@ -64,7 +92,7 @@ output_t problem15()
 		val /= i-20;
 	}
 	// val /= getFactorial(20);
-	cout.precision(50);
+	cout.precision(55);
 	cout << val; //14688017186506670080 // 335367096786357061827717758976
 	return val; //137846528820
 }

@@ -40,6 +40,46 @@ typedef long long output_t;
 
 
 // ***********/* PROBLEMS */***********
+// sum of digits in 100!
+output_t problem20()
+{
+	// need big number helper from problem 16
+	return -1;
+}
+// counting sundays falling on first of a month, from 1 jan 1901 to 31 dec 2000
+output_t problem19()
+{
+	return -1;
+}
+// maximum vertical path sum for triangle
+output_t problem18()
+{
+	/*
+	75
+	95 64
+	17 47 82
+	18 35 87 10
+	20 04 82 47 65
+	19 01 23 75 03 34
+	88 02 77 73 07 63 67
+	99 65 04 28 06 16 70 92
+	41 41 26 56 83 40 80 70 33
+	41 48 72 33 47 32 37 16 94 29
+	53 71 44 65 25 43 91 52 97 51 14
+	70 11 33 28 77 73 17 78 39 68 17 57
+	91 71 52 38 17 14 91 43 58 50 27 29 48
+	63 66 04 68 89 53 67 30 73 16 69 87 40 31
+	04 62 98 27 23 09 70 98 73 93 38 53 60 04 23
+	*/
+	// get next adjacent numbers
+		// store in an array and use offsets as function of row number?
+		// store in a linked list structure?
+
+	// recursive function (getMax(left index, right index))
+	// return max of max(left's left, left's right), max(right's left, right's right)
+	return -1;
+}
+
 //letters used in listing numbers 1-1000 in words
 output_t problem17()
 {
@@ -59,7 +99,7 @@ output_t problem17()
 // sum of the digits of 2^1000
 output_t problem16()
 {
-	// need to reimplement this with BigNumber format due to double losing precision after 53 places? - limited by mantessa
+	// need to reimplement this with BigNumber helper format due to double losing precision after 53 places? - limited by mantessa
 	// how many digits in 2^1000
 	// build an array and iterate through doubling values and evaluating carryover
 	// loop through the array and add the digit values

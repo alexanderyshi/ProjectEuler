@@ -15,7 +15,7 @@
 */
 class BigNumber {
 	private:
-		unsigned digit[BIG_NUMBER_SIZE];
+		uint8_t digit[BIG_NUMBER_SIZE];
 		unsigned size;
 
 	public:
@@ -56,9 +56,9 @@ class BigNumber {
 			}
 		}
 
-		unsigned getValue(unsigned idx) {
+		uint8_t getValue(unsigned idx) {
 			if (idx > size) { 
-				return (unsigned)(0-1);
+				return (uint8_t)(0-1);
 			}
 			return digit[idx];
 		}

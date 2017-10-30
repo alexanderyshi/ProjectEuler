@@ -44,7 +44,8 @@ echo "output_t output=fptrMap[$problem]();" 	>> $TEMP_FILE_NAME;
 echo "std::cout<<\"\n\"<<output<<\"\n\";}"		>> $TEMP_FILE_NAME;
 
 #compile and remove temp
-g++ PE.tmp.cpp -o ./PE.exe;
+# -std=c++11 is used to resolve the issue with uint*_t not being defined
+g++ PE.tmp.cpp -o ./PE.exe -std=c++11;
 if [ $KEEP_FINAL_CPP_FILE == false ] ; then
 	rm PE.tmp.cpp;
 	echo "...removing tmp file..."

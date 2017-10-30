@@ -3,8 +3,8 @@
  * Alexander Shi
  *
  * Usage: 	
- *		use the PROBLEM_NUM macro to indicate which problem you'd like to find the answer for
- *		then execute run.sh in any UNIX-like environment, and the solution will be output to your shell
+ *		pass a problem number from the build script to indicate which problem you'd like to find the answer for
+ *		the paired build script should work in any UNIX-like environment (although testing is done in Microsoft Bash Launcher on W10), and output the problem value to your shell
  *			
  * Developing Methods:
  *		problem solutions should follow the signature pattern "output_t problem*()", making sure to not trail spaces
@@ -12,13 +12,13 @@
  *
  * Caution:
  *		the end of this file must have a new line without any comments
- *		the key phrase used in the script is "problem", and can not be included in a line that also contains a digit
+ *		the key phrase used in the script is "problem", and can not be included in any line that also contains a digit
  */
 
 // *******************/*   *\*******************
-// !!!!!!!!!!!!!!!/* CHANGE ME *\!!!!!!!!!!!!!!!
+// !!!!!!!!!!!!!!!/* CHANGE ME *\!!!!!!!!!!!!!!! (deprecated)
 // *!*!*!*!*!*!*!*/*           *\*!*!*!*!*!*!*!*
-#define PROBLEM_NUM 	5
+// #define PROBLEM_NUM 	5
 // *!*!*!*!*!*!*!*/*           *\*!*!*!*!*!*!*!*
 // *******************/*   *\*******************
 
@@ -111,7 +111,7 @@ output_t problem16()
 
 	output_t aggr = 0;
 	for (int i = mBNum.getSize() - 1; i >= 0; --i) {
-		// cout << mBNum.getValue(i);
+		// cout << mBNum.getValue(i); // verify the value of 2^1000
 		aggr += mBNum.getValue(i);
 	}
 	return aggr;

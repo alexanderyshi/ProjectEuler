@@ -83,17 +83,58 @@ output_t problem18()
 //letters used in listing numbers 1-1000 in words
 output_t problem17()
 {
-	// make an array of the number of letters per digit 1-9
+	output_t aggr = 0;
+	// make an array of the number of letters per digit 0-9 // 0 will be used to represent no addend (i.e. just "twenty")
+		// zero(0) one two three four five six seven eight nine
+	uint8_t ones_length[10] = {0, 3, 3, 5, 4, 4, 3, 5, 5, 4};
 	// sum the digits in this array [1-9]
+	for (int i = 0; i < 10; ++i) {
+		aggr += ones_length[i];
+	}
+	unsigned lengthOnes = aggr;
 	// make an array of the number of letters per digit 10-19
+		// ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen
+	uint8_t teens_length[10] = {3, 6, 6, 8, 8, 7, 7, 9, 8, 8};
 	// sum the digits in this array [10-19]
-	// make an array of the number of letters for twenties through nineties [2x-9x]
+	for (int i = 0; i < 10; ++i) {
+		aggr += teens_length[i];
+	}
+	// make an array of the number of letters for twenties through nineties [2x-9x], with 0x and 10x added for indexing convenience
+		// zero(0) ten(0) twenty thirty forty fifty sixty seventy eighty ninety
+	uint8_t tens_length[10] = {0, 0, 6, 6, 5, 5, 5, 7, 6, 6};
+	for (int i = 20; i < 100; ++i) {
 		// for the numbers 20-99, sum the letters for the tens place and the letters for the ones place
-		// for the numbers 100-999, sum the hundreds place digit number, the number of letters in "hundred and", and the letters for the respective 1-99 
+		// i.e. twenty, twenty one, twenty two... ninety nine
+		aggr += tens_length[i/10] + ones_length[i%10];
+	}
+
+	unsigned lengthSubHun = aggr;
+	uint8_t lengthOfHundredAnd = 10;
+	uint8_t lengthOfAnd = 3;
+	aggr += lengthOnes * 100 + 9 * lengthOfHundredAnd * 100 - lengthOfAnd * 9 + lengthSubHun * 9;
+	// for (int i = 100; i < 1000; ++i) { // used to develop above statement
+	// 	output_t old_aggr = aggr;
+	// 	// for the numbers 100-999, sum the hundreds place digit number, the number of letters in "hundred and"...
+	// 	aggr += ones_length[i/100] + lengthOfHundredAnd;
+
+	// 	old_aggr = aggr;
+	// 	// ...and the letters for the respective 1-99 
+	// 	uint8_t sub_hun_tmp = i%100;
+	// 	if (sub_hun_tmp >= 20) {
+	// 		aggr += tens_length[sub_hun_tmp/10] + ones_length[sub_hun_tmp%10];
+	// 	} else if (sub_hun_tmp >= 10) {
+	// 		aggr += teens_length[sub_hun_tmp%10];
+	// 	} else if (sub_hun_tmp > 0) {
+	// 		aggr += ones_length[sub_hun_tmp%10];
+	// 	} else {
+	// 		aggr -= lengthOfAnd; // X hundred (no "AND")
+	// 	}
+	// }
 	// add the digits for "one thousand" 
+	aggr += 11;
 
 	// much of the repeating numbers can be implemented by doing something like "digits in eleven * 10 appearances" + "digits in 'hundred and' * 9 appearances"
-	return -1;
+	return aggr; // 21124
 }
 
 // sum of the digits of 2^1000
@@ -114,7 +155,7 @@ output_t problem16()
 		// cout << mBNum.getValue(i); // verify the value of 2^1000
 		aggr += mBNum.getValue(i);
 	}
-	return aggr;
+	return aggr; // 1366
 
 }
 

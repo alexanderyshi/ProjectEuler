@@ -99,18 +99,29 @@ output_t problem17()
 // sum of the digits of 2^1000
 output_t problem16()
 {
+
 	// need to reimplement this with BigNumber helper format due to double losing precision after 53 places? - limited by mantessa
 	// how many digits in 2^1000
 	// build an array and iterate through doubling values and evaluating carryover
 	// loop through the array and add the digit values
-	return -1;
+	BigNumber mBNum(1);
+	for (int i = 0; i < 1000; ++i) {
+		mBNum.multiply(2);
+	}
+
+	output_t aggr = 0;
+	for (int i = mBNum.getSize() - 1; i >= 0; --i) {
+		// cout << mBNum.getValue(i);
+		aggr += mBNum.getValue(i);
+	}
+	return aggr;
 
 }
 
 // lattice paths traversing DOWN RIGHT in a 20x20 grid
 output_t problem15()
 {
-	// find number of combinations of 20D and 20R
+	// find number of combinations of 20D and 20R //n!/(r!*(n-r)!)
 	// base case 	D...DDDRRR..R
 	// 				D...DDRDRR..R //20 ways to switch the first R, 19 to move the 2nd, 18 to move the 3rd 
 
@@ -121,19 +132,17 @@ output_t problem15()
 	RDDR
 	RDRD
 	RRDD
-	*/
-	//n!/(r!*(n-r)!)
-	// n multichoose k (n+k-1)C(n)
+	*/ //14688017186506670080 // 335367096786357061827717758976
 
+	// n multichoose k (n+k-1)C(n)
 	// return getFactorial(20+21-1)/getFactorial(20)/getFactorial(20-20);
+	// return getFactorial(40)/getFactorial(20);
 	double val = 1;
 	for (int i = 21; i <=40; ++i) {
 		val *= i;
 		val /= i-20;
 	}
-	// val /= getFactorial(20);
 	cout.precision(55);
-	cout << val; //14688017186506670080 // 335367096786357061827717758976
 	return val; //137846528820
 }
 

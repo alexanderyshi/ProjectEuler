@@ -1,4 +1,74 @@
 #include <map>
+#include <cstring>
+#define BIG_NUMBER_SIZE 500
+
+// requires macro BIG_NUMBER_SIZE to be def. else compilation error
+// assumes only whole numbers
+// i.e. 27 * 2
+/*
+	starting cond.
+		2.14
+	i = 1, size = 2
+		4.14
+		5.14
+		5.4
+*/
+class BigNumber {
+	private:
+		unsigned digit[BIG_NUMBER_SIZE];
+		unsigned size;
+
+	public:
+		BigNumber() : digit(), size(0) { // value initialized
+		};
+
+		BigNumber(unsigned starting_val) : digit(), size(0) {
+			while (starting_val > 0) {
+				digit[size] = starting_val%10;
+				starting_val /= 10;
+				++size;
+			}
+		};
+
+		// this is a duplication of the constructor with unsigned, should not be kept like this
+		void assign(unsigned starting_val) { 
+			std::memset(digit, 0, sizeof(digit));
+			size = 0;
+			while (starting_val > 0) {
+				digit[size] = starting_val%10;
+				starting_val /= 10;
+				++size;
+			}
+		}
+
+		void multiply(unsigned multipler){
+			// skip first value to simplify indexing, logic
+			digit[0] *= multipler;
+			for (int i = 1; i < BIG_NUMBER_SIZE; ++i) {
+				// this index may be left with a value > 10, cleaned up on i+1
+				digit[i] *= multipler;
+				// carryover taken from last index
+				digit[i] += digit[i-1]/10;
+				digit[i-1] %= 10;
+				if (i >= size) {
+					if (digit[i]) {++size;}
+				}
+			}
+		}
+
+		unsigned getValue(unsigned idx) {
+			if (idx > size) { 
+				return (unsigned)(0-1);
+			}
+			return digit[idx];
+		}
+
+		unsigned getSize() {
+			return size;
+		}
+
+};
+
 //returns whether any value is prime or not in O(1) run time for many values, else O(0.25*n)
 int isPrime(unsigned long long val)
 {

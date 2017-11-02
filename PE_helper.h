@@ -15,7 +15,7 @@
 */
 class BigNumber {
 	private:
-		uint8_t digit[BIG_NUMBER_SIZE];
+		uint16_t digit[BIG_NUMBER_SIZE]; // larger storage container needed for larger multiplication operations
 		unsigned size;
 
 	public:
@@ -42,7 +42,7 @@ class BigNumber {
 		}
 
 		void multiply(unsigned multipler){
-			// skip first value to simplify indexing, logic
+			// skip first value to simplify indexing logic
 			digit[0] *= multipler;
 			for (int i = 1; i < BIG_NUMBER_SIZE; ++i) {
 				// this index may be left with a value > 10, cleaned up on i+1
@@ -56,7 +56,7 @@ class BigNumber {
 			}
 		}
 
-		uint8_t getValue(unsigned idx) {
+		uint8_t getValue(unsigned idx) { // cout cant seem to handle uint8_t, should I return chars for convenience?
 			if (idx > size) { 
 				return (uint8_t)(0-1);
 			}
@@ -65,6 +65,14 @@ class BigNumber {
 
 		unsigned getSize() {
 			return size;
+		}
+
+		unsigned long long getSumDigits() {
+			unsigned long long aggr = 0;
+			for (int i = 0; i < size; ++i) {
+				aggr += digit[i];
+			}
+			return aggr;
 		}
 
 };
@@ -135,8 +143,8 @@ long getTriangleNumber(int n) {
 }
 
 //returns factorial for whole number
-long getFactorial(unsigned int n) {
-	long output = 1;
+unsigned long long getFactorial(unsigned int n) {
+	unsigned long long output = 1;
 	for (int i = 2; i <= n; ++i) {
 		output *= i;
 	}

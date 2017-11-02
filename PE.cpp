@@ -43,8 +43,26 @@ typedef long long output_t;
 // sum of digits in 100!
 output_t problem20()
 {
-	// need big number helper from problem 16
-	return -1;
+	output_t aggr;
+	BigNumber mBNum(1);
+	// cout << (int)mBNum.getValue(0) << "\n";
+	// cout << mBNum.getSize() << "\n";
+	// cout << mBNum.getValue(1) << "\n";
+	for (int i = 2; i <= 100; ++i) {
+		mBNum.multiply(i);
+		// cout << mBNum.getValue(0);
+		// cout << mBNum.getSize() << "\n";
+		// cout << "\n" << i << "!\t" << mBNum.getSize() << " dig\t";
+		// for (int i = mBNum.getSize() - 1; i >= 0; --i) {
+			// cout << (int)mBNum.getValue(i);
+		// }
+		// cout << "\nFACT:\t" << getFactorial(i); // good until 20!
+	}
+	// cout << "\n";
+	// for (int i = mBNum.getSize() - 1; i >= 0; --i) {
+	// 	cout << (int)mBNum.getValue(i);
+	// }
+	return mBNum.getSumDigits(); // 648
 }
 // counting sundays falling on first of a month, from 1 jan 1901 to 31 dec 2000
 output_t problem19()

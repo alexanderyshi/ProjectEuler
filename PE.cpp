@@ -4,7 +4,8 @@
  *
  * Usage: 	
  *		pass a problem number from the build script to indicate which problem you'd like to find the answer for
- *		the paired build script should work in any UNIX-like environment (although testing is done in Microsoft Bash Launcher on W10), and output the problem value to your shell
+ *		the paired build script should work in any UNIX-like environment (although testing is done in Microsoft Bash Launcher on W10), 
+ *		and output the problem value to your shell
  *			
  * Developing Methods:
  *		problem solutions should follow the signature pattern "output_t problem*()", making sure to not trail spaces
@@ -44,7 +45,7 @@ typedef long long output_t;
 output_t problem20()
 {
 	output_t aggr;
-	BigNumber mBNum(1);
+	BigNumber mBNum(1); //NOTE: good until 25! if using uint8_t to store intermediates
 	// cout << (int)mBNum.getValue(0) << "\n";
 	// cout << mBNum.getSize() << "\n";
 	// cout << mBNum.getValue(1) << "\n";
@@ -67,7 +68,46 @@ output_t problem20()
 // counting sundays falling on first of a month, from 1 jan 1901 to 31 dec 2000
 output_t problem19()
 {
-	return -1;
+							//j  f  m  a  m  j  j  a  s  o  n  d
+							//31 28 31 30 31 30 31 31 30 31 30 31
+	uint8_t DaysInMonth[12] = {3, 0, 3, 2, 3, 2, 3, 3, 2, 3, 2, 3}; // days in month modulus 7
+	// 	1 Jan 1900 was a Monday. - starting condition
+	uint16_t day = 1; // 1 indicates monday, 0 sunday, 6 saturday
+	uint16_t month = 0; // 0 indicates january, 11 is december
+	uint16_t year = 1900; // was getting 174 when including year 1900 by accident
+	unsigned cnt = 0;
+	//advance a year, 1900 was not a leap year
+	for (int i = 0; i < 12; ++i) {
+		day += DaysInMonth[i]; //no chance of overflow for known array
+	}
+	day %= 7;
+	++year;
+	cout << cnt <<"\t"<< day+1<<"\t" << month+1<<"\t" << year << "\n";
+	while (year < 2001) {
+		//check for sundays
+		if (day == 0) {
+			++cnt;
+			cout << cnt <<"\t"<< day+1<<"\t" << month+1<<"\t" << year << "\n";
+		} 
+
+		//add days for current month and find day of week
+		day += DaysInMonth[month];
+		if (month == 1) { // feb leap year condition
+			if (year%4 == 0 && (year%100 != 0 || year%400 == 0 )) { // leap year if: div by 4 AND (NOT century OR 4th century)
+				++day;
+				cout << "leap" << year << "\n";
+			}
+		}
+		day %=7;
+
+		//reset counters
+		++month;
+		if (month == 12) {
+			month = 0;
+			year++;
+		}
+	}
+	return cnt; // 171
 }
 // maximum vertical path sum for triangle
 output_t problem18()

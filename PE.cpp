@@ -41,6 +41,127 @@ typedef long long output_t;
 
 
 // ***********/* PROBLEMS */***********
+
+//An engineers' dream come true
+// Problem 263
+/*
+	 a PRACTICAL number "n" with all numbers [1,n] describable by a sum of distinct divisors of n
+	 a SEXY PAIR of prime numbers with a difference of six (i.e. 23,29)
+	 a TRIPLE PAIR which is three consecutive sexy prime pairs (a,b), (b,c), (c,d)
+	 an ENGINEERS PARADISE where (n-9,n-3), (n-3, n+3), and (n+3,n+9) form a triple pair,
+		and {n-8, n-4, n, n+4, n+8} are practical
+
+	RTF: the 4th occurring engineers paradise
+
+	Practical num must be at least 1, therefore n-8 >= 1, n >= 9
+	Redefine search by going through N = n + 9, N - 18 = n - 9
+	Start search by iterating through prime numbers because they are faster to check than practical numbers
+		save them in a queue that drops any values that become smaller than N-18.
+
+	PSEUDOCODE:
+	while engi paradise found less than 4
+		increment N and check for prime
+		For each new prime found,
+			drop primes that are too small from queue
+			if prime queue has at least 4 members
+				if queue has triple pair
+					for (itr in N-17->N-1, steps of 4) 		<- {for (n-8->n+8, steps of 4)}
+						if itr is not a practical number
+							break
+						increment number of paradises found
+						save last known engi paradise
+	return last known engi paradise
+	
+	Practical Number check via SUCCESSIVE APPROXIMATION:
+		get list of divisors
+		for itr in [1,numDiv], decr. from numDiv to 1
+			use the value of the counter to try permutations of adding/omitting all divisors (bit packed states)
+			set 1 << itr
+			for subbit in [1, itr], decr. from itr to 1
+				set 1 << subbit 
+				if the value of the permutation sum is greater than n
+					reset 1 << subbit 
+*/
+
+//Chinese Leftovers I
+// problem 531
+/*
+	Let g(a,n,b,m) be the smallest non-negative solution x to the system:
+	x = a mod n
+	x = b mod m
+	if such a solution exists, otherwise 0.
+
+	E.g. g(2,4,4,6)=10, but g(3,4,4,6)=0.
+		10 mod 4 = 2
+		10 mod 6 = 4
+
+		? mod 4 = 3 <- odd
+		? mod 6 = 4 <- even
+
+	Let φ(n) be Euler's totient function.
+	Euler's totient function counts the positive integers up to a given integer n 
+		that are relatively prime to n.
+	Relatively prime: the gcd of (n,k) is 1, where k belongs to [1,n)
+
+	Let f(n,m)=g(φ(n), n, φ(m), m)
+
+	Find ∑f(n,m) for 1000000 ≤ n < m < 1005000
+*/
+
+
+//Chinese Leftovers II
+output_t problem552()
+{
+	// a_n is smalled unsigned satisfying a_n%p_i = i for i in [1,n], p_i is ith prime
+	// i.e. a_2 = 5 since
+		//5%2 = 1
+		//5%3 = 2
+	// i.e. a_3 = 23 since
+		//23%2 = 1
+		//23%3 = 2
+		//23%5 = 3
+	// i.e. a_4 = 53, a_5 = 1523
+	output_t s_n = 0;
+	// s_n is sum of all primes up to n that divide at least one element in a_n sequence
+	// i.e. s_50 = 69 since 5 + 23 + 41, since prime5 divides a_2, prim23 divides a_3, prime41 divides a_10 = 5765999453
+		// they are the only primes up to 50 that divide an element in a_n sequence
+	for (unsigned n = 0; n <= 3E5; ++n) {
+		// check if n is in a_n
+			// add n to vector for a_n if true
+		// check if n prime
+			// iterate through a_n vector and check for a_n(...)%n==0
+				// add n to s_n
+	}
+	// !!AYS solving a_n%n is the toughest part, need to prove that some set of a_n is exhaustive or
+		// find a way to check for all n in a simple statement
+
+	// SOLN: take multiples of primes and check if they fit the condition (perform up to what condition?)
+
+	// SOLN: GENERATING A_N
+		// primes: 2 3 5 7 11	 13 17 19 23 29		 31 37 41 43 47 	53 59 61 67 71
+		// for a_n, a_n-1 % 2 = 0, a_n - 2 % 3 = 0, ... a_n - 11 % 31 = 0, ...
+
+		// they will all be odd, since must satisfy a_n%2 == 1
+		// the are not all primes themselves, since a_10 % 41 == 0
+		// 5 is 	3 prime
+		//23 is 	9 prime
+		//53 is 	16 prime
+		//1523 is 	? prime
+	// to get the nth a_n, start by checking values of X-n%p_n == 0, then verify rest of X-i%p_i == 0
+
+	// a_1 = 1
+		//1%2 = 1
+	// a_2 = 5    <--- 5 = 2*3 - (1+?)
+		//5%2 = 1
+		//5%3 = 2
+	// a_3 = 23   <--- 23 = 2*3*5 - (?)
+		//23%2 = 1
+		//23%3 = 2
+		//23%5 = 3
+	// a_4 = 41  	<--- 41 = 2*3*5*7 - (?)
+	return -1;	
+}
+
 // sum of digits in 100!
 output_t problem20()
 {
